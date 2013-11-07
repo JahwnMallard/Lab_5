@@ -11,7 +11,7 @@ int main(void) {
 	char * endMessageTop = "You am  ";
 	char * endMessageBottomLose = "lose   ";
 	char * endMessageBottomWin = "Not lose";
-	char buttons[] = { BIT0, BIT1, BIT2, BIT3 };
+
 
 	initProgram();
 	unsigned char player = initPlayer();
@@ -28,7 +28,7 @@ int main(void) {
 
 			break;
 		case BIT1:
-			player = movePlayer(player, LEFT);
+			player = movePlayer(player, RIGHT);
 
 			break;
 
@@ -61,7 +61,7 @@ int main(void) {
 
 	// Flag for continuous counting is TAIFG
 	while (1)
-		if (button) {
+		if (button != 0) {
 			main();
 		}
 
