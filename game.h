@@ -15,9 +15,7 @@
 
 #define NUM_MINES 2
 
-char * endMessageTop = "You am";
-char * endMessageBottomLose = "lose";
-char * endMessageBottomWin = "Not lose";
+
 //
 // Initializes player to starting position on board.
 //

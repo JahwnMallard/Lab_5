@@ -68,7 +68,7 @@ void initSPI()
 
 	__enable_interrupt();       // enable maskable interrupts
 
-	int timer = 0;
+
 
 }
 
