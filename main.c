@@ -4,7 +4,8 @@
 /*
  * main.c
  */
-int timer ;
+int timer;
+char button;
 int main(void) {
 	WDTCTL = WDTPW | WDTHOLD;	// Stop watchdog timer
 	char * endMessageTop = "You am  ";
@@ -12,47 +13,46 @@ int main(void) {
 	char * endMessageBottomWin = "Not lose";
 	char buttons[] = { BIT0, BIT1, BIT2, BIT3 };
 
-
 	initProgram();
 	unsigned char player = initPlayer();
 	printPlayer(player);
 	timer = 0;
+	button = 0;
 	while (timer < 4 && !didPlayerWin(player)) {
 
-		char button;
-
-		button = pollP1Buttons( buttons,  4);
+		//	button = pollP1Buttons( buttons,  4);
 
 		switch (button) {
+		case BIT0:
+			player = movePlayer(player, RIGHT);
+
+			break;
 		case BIT1:
 			player = movePlayer(player, LEFT);
-			timer = 0;
-			break;
-		case BIT0:
-			player =movePlayer(player, RIGHT);
-		//	timer = 0;
+
 			break;
 
 		case BIT2:
 			player = movePlayer(player, UP);
-			timer = 0;
+
 			break;
 		case BIT3:
 			player = movePlayer(player, DOWN);
-			timer = 0;
+
 			break;
 		}
-
+		button = 0;
 	}
 
 	if (timer == 4) {
-		_disable_interrupt();
+
+		button = 0;
 		cursorToLineOne();
 		writeString(endMessageTop, 8);
 		cursorToLineTwo();
 		writeString(endMessageBottomLose, 8);
 	} else if (didPlayerWin(player)) {
-		_disable_interrupt();
+		button = 0;
 		cursorToLineOne();
 		writeString(endMessageTop, 8);
 		cursorToLineTwo();
@@ -60,14 +60,65 @@ int main(void) {
 	}
 
 	// Flag for continuous counting is TAIFG
-
-	if(pollP1Buttons( buttons,  4)){
-		main();
-	}
+	while (1)
+		if (button) {
+			main();
+		}
 
 }
 #pragma vector=TIMER0_A1_VECTOR
 __interrupt void TIMER0_A1_ISR() {
 	TACTL &= ~TAIFG;            // clear interrupt flag
 	timer++;
+}
+
+#pragma vector=PORT1_VECTOR
+__interrupt void Port_1_ISR(void) {
+	if (BIT0 & P1IFG) {
+		if (BIT0 & P1IES) {
+			button = BIT0;
+			timer = 0;
+		} else {
+			debounce();
+		}
+
+		P1IES ^= BIT0;
+		P1IFG &= ~BIT0;
+	}
+
+	if (BIT1 & P1IFG) {
+		if (BIT1 & P1IES) {
+			button = BIT1;
+			timer = 0;
+		} else {
+			debounce();
+		}
+
+		P1IES ^= BIT1;
+		P1IFG &= ~BIT1;
+	}
+
+	if (BIT2 & P1IFG) {
+		if (BIT2 & P1IES) {
+			button = BIT2;
+			timer = 0;
+		} else {
+			debounce();
+		}
+
+		P1IES ^= BIT2;
+		P1IFG &= ~BIT2;
+	}
+
+	if (BIT3 & P1IFG) {
+		if (BIT3 & P1IES) {
+			button = BIT3;
+			timer = 0;
+		} else {
+			debounce();
+		}
+
+		P1IES ^= BIT3;
+		P1IFG &= ~BIT3;
+	}
 }
