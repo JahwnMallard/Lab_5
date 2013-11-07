@@ -28,6 +28,7 @@ void initProgram() {
 	LCDinit();
 	LCDclear();
 	initButtons();
+	__enable_interrupt();       // enable maskable interrupts
 }
 
 void initSPI()
@@ -37,7 +38,7 @@ void initSPI()
 	UCB0CTL0 |= UCCKPL | UCMSB | UCMST | UCSYNC;
 
 	UCB0CTL1 |= UCSSEL1; //Selects which clock to use
-	//UCB0STAT |= UCLISTEN; //enables internal loopback
+	UCB0STAT |= UCLISTEN; //enables internal loopback
 
 	P1DIR |= BIT4; //P1.4 is used as the slave select
 
@@ -66,7 +67,7 @@ void initSPI()
 
 	TACTL |= TAIE;              // enable interrupt
 
-	__enable_interrupt();       // enable maskable interrupts
+
 }
 
 void LCDclear() {
@@ -237,7 +238,7 @@ void set_SS_lo() {
 }
 
 void SPI_send(char byteToSend) {
-	volatile char readByte;
+	char readByte;
 
 	set_SS_lo();
 

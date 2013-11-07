@@ -3,6 +3,8 @@
 #include "LCD_Driver.h"
 #include "rand.h"
 
+unsigned int random = 4352;
+
 unsigned char initPlayer() {
 	return 0x80;
 }
@@ -20,11 +22,12 @@ void clearPlayer(unsigned char player) {
 unsigned char movePlayer(unsigned char player, unsigned char direction) {
 	switch (direction) {
 	case UP:
-		if (player > 0x80) {
+		if (player > 0x87) {
 			clearPlayer(player);
 			player -= 0x40;
 
 			printPlayer(player);
+			debounce();
 
 		}
 		break;
@@ -34,6 +37,7 @@ unsigned char movePlayer(unsigned char player, unsigned char direction) {
 			player += 0x40;
 
 			printPlayer(player);
+			debounce();
 
 		}
 		break;
@@ -44,6 +48,7 @@ unsigned char movePlayer(unsigned char player, unsigned char direction) {
 			player -= 0x01;
 
 			printPlayer(player);
+			debounce();
 
 		}
 		break;
@@ -54,7 +59,7 @@ unsigned char movePlayer(unsigned char player, unsigned char direction) {
 			player += 0x01;
 
 			printPlayer(player);
-
+			debounce();
 		}
 		break;
 
@@ -79,13 +84,13 @@ char didPlayerHitMine(unsigned char player, unsigned char mines[NUM_MINES]) {
 }
 
 void generateMines(unsigned char * mines) {
-	char state = prand(INITIAL_SEED);
-	char mine_1_location = 0x81 + state % 6;
-	state = prand(state);
-	char mine_2_location = 0xc0 + state % 6;
+	random = prand(random);
+	char mine_1_location = 0x81 + random % 7;
+	random = prand(random);
+	char mine_2_location = 0xc0 + random % 7;
 	while (invalidMineCheck(mine_1_location, mine_2_location)) {
-		state = prand(state);
-		mine_2_location = 0xc0 + state % 6;
+		random = prand(random);
+		mine_2_location = 0xc0 + random % 6;
 	}
 	mines[0] = mine_1_location;
 	mines[1] = mine_2_location;
