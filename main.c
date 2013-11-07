@@ -14,11 +14,11 @@ int main(void) {
 	timer = 0;
 	button = 0;
 	unsigned char player = initPlayer();
-	unsigned char mines[NUM_MINES];
-	initProgram();
+	unsigned char  mines[NUM_MINES];
 	printPlayer(player);
-
 	generateMines(mines);
+	initProgram();
+
 
 	while (timer < 4 && !didPlayerWin(player)
 			&& !didPlayerHitMine(player, mines)) {
@@ -31,7 +31,7 @@ int main(void) {
 
 			break;
 		case BIT1:
-			player = movePlayer(player, RIGHT);
+			player = movePlayer(player, LEFT);
 
 			break;
 

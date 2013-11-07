@@ -37,7 +37,7 @@ void initSPI()
 	UCB0CTL0 |= UCCKPL | UCMSB | UCMST | UCSYNC;
 
 	UCB0CTL1 |= UCSSEL1; //Selects which clock to use
-	UCB0STAT |= UCLISTEN; //enables internal loopback
+	//UCB0STAT |= UCLISTEN; //enables internal loopback
 
 	P1DIR |= BIT4; //P1.4 is used as the slave select
 
@@ -237,7 +237,7 @@ void set_SS_lo() {
 }
 
 void SPI_send(char byteToSend) {
-	char readByte;
+	volatile char readByte;
 
 	set_SS_lo();
 

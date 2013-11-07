@@ -45,7 +45,7 @@ char didPlayerWin(unsigned char player);
 
 char didPlayerHitMine(unsigned char player, unsigned char mines[NUM_MINES]);
 
-void generateMines(unsigned char mines[NUM_MINES]);
+void generateMines(unsigned char * mines);
 
 char invalidMineCheck(char mine1, char mine2);
 

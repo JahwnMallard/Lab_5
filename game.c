@@ -78,11 +78,11 @@ char didPlayerHitMine(unsigned char player, unsigned char mines[NUM_MINES]) {
 	return 0;
 }
 
-void generateMines(unsigned char mines[NUM_MINES]) {
-	int state = prand(INITIAL_SEED);
-	int mine_1_location = 0x81 + state % 6;
+void generateMines(unsigned char * mines) {
+	char state = prand(INITIAL_SEED);
+	char mine_1_location = 0x81 + state % 6;
 	state = prand(state);
-	int mine_2_location = 0xc0 + state % 6;
+	char mine_2_location = 0xc0 + state % 6;
 	while (invalidMineCheck(mine_1_location, mine_2_location)) {
 		state = prand(state);
 		mine_2_location = 0xc0 + state % 6;
@@ -90,9 +90,10 @@ void generateMines(unsigned char mines[NUM_MINES]) {
 	mines[0] = mine_1_location;
 	mines[1] = mine_2_location;
 	printMines(mines);
+
 }
 
-void printMines(unsigned char mines[NUM_MINES]) {
+void printMines(unsigned char * mines) {
 	int i;
 	for (i = 0; i < NUM_MINES; i++) {
 		writeCommandByte(mines[i]);
