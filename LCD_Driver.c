@@ -67,9 +67,6 @@ void initSPI()
 	TACTL |= TAIE;              // enable interrupt
 
 	__enable_interrupt();       // enable maskable interrupts
-
-
-
 }
 
 void LCDclear() {

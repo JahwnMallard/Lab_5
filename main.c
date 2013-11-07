@@ -4,18 +4,19 @@
 /*
  * main.c
  */
-int timer = 0;
+int timer ;
 int main(void) {
 	WDTCTL = WDTPW | WDTHOLD;	// Stop watchdog timer
-	char * endMessageTop = "You am";
-	char * endMessageBottomLose = "lose";
+	char * endMessageTop = "You am  ";
+	char * endMessageBottomLose = "lose   ";
 	char * endMessageBottomWin = "Not lose";
 	char buttons[] = { BIT0, BIT1, BIT2, BIT3 };
+
 
 	initProgram();
 	unsigned char player = initPlayer();
 	printPlayer(player);
-
+	timer = 0;
 	while (timer < 4 && !didPlayerWin(player)) {
 
 		char button;
@@ -23,14 +24,15 @@ int main(void) {
 		button = pollP1Buttons( buttons,  4);
 
 		switch (button) {
-		case BIT0:
-			player =movePlayer(player, RIGHT);
-			timer = 0;
-			break;
 		case BIT1:
 			player = movePlayer(player, LEFT);
 			timer = 0;
 			break;
+		case BIT0:
+			player =movePlayer(player, RIGHT);
+		//	timer = 0;
+			break;
+
 		case BIT2:
 			player = movePlayer(player, UP);
 			timer = 0;
