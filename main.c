@@ -61,7 +61,10 @@ int main(void) {
 
 	// Flag for continuous counting is TAIFG
 
-	return 0;
+	if(pollP1Buttons( buttons,  4)){
+		main();
+	}
+
 }
 #pragma vector=TIMER0_A1_VECTOR
 __interrupt void TIMER0_A1_ISR() {
