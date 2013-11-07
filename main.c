@@ -11,14 +11,17 @@ int main(void) {
 	char * endMessageTop = "You am  ";
 	char * endMessageBottomLose = "lose   ";
 	char * endMessageBottomWin = "Not lose";
-
-
-	initProgram();
-	unsigned char player = initPlayer();
-	printPlayer(player);
 	timer = 0;
 	button = 0;
-	while (timer < 4 && !didPlayerWin(player)) {
+	unsigned char player = initPlayer();
+	unsigned char mines[NUM_MINES];
+	initProgram();
+	printPlayer(player);
+
+	generateMines(mines);
+
+	while (timer < 4 && !didPlayerWin(player)
+			&& !didPlayerHitMine(player, mines)) {
 
 		//	button = pollP1Buttons( buttons,  4);
 
@@ -44,7 +47,7 @@ int main(void) {
 		button = 0;
 	}
 
-	if (timer == 4) {
+	if (timer == 4 || didPlayerHitMine(player, mines)) {
 
 		button = 0;
 		cursorToLineOne();

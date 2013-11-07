@@ -15,6 +15,7 @@
 
 #define NUM_MINES 2
 
+#define INITIAL_SEED 2874
 
 //
 // Initializes player to starting position on board.
@@ -41,10 +42,12 @@ unsigned char movePlayer(unsigned char player, unsigned char direction);
 //
 char didPlayerWin(unsigned char player);
 
-/*
- * Functions which may prove useful in achieving A-Functionality.
- * 
+
 char didPlayerHitMine(unsigned char player, unsigned char mines[NUM_MINES]);
+
 void generateMines(unsigned char mines[NUM_MINES]);
+
+char invalidMineCheck(char mine1, char mine2);
+
 void printMines(unsigned char mines[NUM_MINES]);
-*/
+
