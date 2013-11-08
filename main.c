@@ -49,19 +49,23 @@ int main(void) {
 		}
 	}
 
+	//if the timer hits 2 seconds, or if the player hits a mine, the game is over
 		if (timer == 4 || didPlayerHitMine(player, mines)) {
 
+			//displays a special message if the player lost due to hitting a mine
 			if(didPlayerHitMine(player, mines)){
 				cursorToLineOne();
 				writeString(deadMessage, 8);
 				_delay_cycles(500000);
 			}
 			button = 0;
+
+			//displayes game over message
 			cursorToLineOne();
 			writeString(endMessageTop, 8);
 			cursorToLineTwo();
 			writeString(endMessageBottomLose, 8);
-		} else if (didPlayerWin(player)) {
+		} else if (didPlayerWin(player)) {  //if the player hits 0xC7 they win, display the win message
 			button = 0;
 			cursorToLineOne();
 			writeString(endMessageTop, 8);
@@ -70,7 +74,7 @@ int main(void) {
 		}
 
 
-	// Flag for continuous counting is TAIFG
+	// Waits for a button input and then resets the game
 	while (button != 0)
 	{
 	}

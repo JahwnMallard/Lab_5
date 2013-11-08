@@ -5,7 +5,6 @@
  * This is shell code for the game to be implemented in Lab 4.  It provides basic functions that may prove useful in accomplishing the lab.
  */
 
-
 #define UP 1
 #define DOWN 2
 #define LEFT 3
@@ -42,12 +41,17 @@ unsigned char movePlayer(unsigned char player, unsigned char direction);
 //
 char didPlayerWin(unsigned char player);
 
-
+//checks if the player has hit a mine
 char didPlayerHitMine(unsigned char player, unsigned char mines[NUM_MINES]);
 
+//creates 2 mines at random locations, one on the top row, one on the bottom.
+//The mines cannot be stacked or diagonal to each other.
+//The mines cannot be placed in the starting or ending locations
 void generateMines(unsigned char * mines);
 
+//checks whether or not the bottom mine is placed in a valid location in relation to the first mine
 char invalidMineCheck(char mine1, char mine2);
 
+//displays the mines on the screen
 void printMines(unsigned char mines[NUM_MINES]);
 

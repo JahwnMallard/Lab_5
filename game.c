@@ -19,6 +19,7 @@ void clearPlayer(unsigned char player) {
 	writeDataByte(' ');
 }
 
+//The difference between the addresses on the top and bottom row is 0x40, so I found it easier to add or subtract that to change rows
 unsigned char movePlayer(unsigned char player, unsigned char direction) {
 	switch (direction) {
 	case UP:
