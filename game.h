@@ -1,8 +1,9 @@
 /*
  * game.h
- * Author: Todd Branchflower
+ * Author: John Miller
  *
- * This is shell code for the game to be implemented in Lab 4.  It provides basic functions that may prove useful in accomplishing the lab.
+ * Functions for the game titled "simple game 5: A lab", player is on an 8x2 screen and must navigate from the top left to the bottom right.
+ * But beware, there are mines in place, as well as a 2 second time limit in-between moves!
  */
 
 #define UP 1
@@ -41,7 +42,7 @@ unsigned char movePlayer(unsigned char player, unsigned char direction);
 //
 char didPlayerWin(unsigned char player);
 
-//checks if the player has hit a mine
+//Returns true if the player is on the same
 char didPlayerHitMine(unsigned char player, unsigned char mines[NUM_MINES]);
 
 //creates 2 mines at random locations, one on the top row, one on the bottom.
