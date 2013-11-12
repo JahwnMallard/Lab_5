@@ -3,8 +3,12 @@
 #include "game.h"
 /*
  * main.c
+ * Author: John Miller
+ *
+ * Code for the simple game in lab 5
  */
 int timer;
+
 char button;
 int main(void) {
 	WDTCTL = WDTPW | WDTHOLD;	// Stop watchdog timer
@@ -23,7 +27,7 @@ int main(void) {
 		printPlayer(player);
 		generateMines(mines);
 
-		//run while none of the end-game situations have occured
+		//run while none of the end-game situations have occurred
 		while ((timer < 4) && !didPlayerWin(player)
 				&& !didPlayerHitMine(player, mines)) {
 

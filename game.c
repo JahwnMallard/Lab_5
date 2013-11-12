@@ -2,7 +2,13 @@
 #include "game.h"
 #include "LCD_Driver.h"
 #include "rand.h"
-
+/*
+ * game.h
+ * Author: John Miller
+ *
+ * Functions for the game titled "simple game 5: A lab", player is on an 8x2 screen and must navigate from the top left to the bottom right.
+ * But beware, there are mines in place, as well as a 2 second time limit in-between moves!
+ */
 unsigned int random = 4352;
 
 unsigned char initPlayer() {
@@ -84,11 +90,12 @@ char didPlayerHitMine(unsigned char player, unsigned char mines[NUM_MINES]) {
 	return 0;
 }
 
+//Generates mines on the top and bottom rows in valid locations
 void generateMines(unsigned char * mines) {
 	random = prand(random);
-	char mine_1_location = 0x81 + random % 7;
+	char mine_1_location = 0x81 + random % 7; //0x80 is the starting location, so everything to the right of it is valid
 	random = prand(random);
-	char mine_2_location = 0xc0 + random % 7;
+	char mine_2_location = 0xc0 + random % 7; //0xc7 is the ending location, so everything to the left of it is valid
 	while (invalidMineCheck(mine_1_location, mine_2_location)) {
 		random = prand(random);
 		mine_2_location = 0xc0 + random % 6;
